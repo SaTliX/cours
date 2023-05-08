@@ -1,57 +1,62 @@
-const quoteElement = document.querySelector('#quote');
-const authorElement = document.querySelector('#author');
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js'
+import {
+  getFirestore, collection, getDocs, addDoc, deleteDoc, doc
+} from 'https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore.js'
+const firebaseConfig = {
+    apiKey: "AIzaSyCRWO-9jNND-uBTgnx95NT7A7Qj2lBEGQE",
+    authDomain: "projet-final-56670.firebaseapp.com",
+    projectId: "projet-final-56670",
+    storageBucket: "projet-final-56670.appspot.com",
+    messagingSenderId: "736823710598",
+    appId: "1:736823710598:web:aca3126707a5add4265207"
+  };
 
-const api = 'https://api.quotable.io/random';
+  // init firebase
+initializeApp(firebaseConfig)
 
-function getQuote() {
-  fetch(api)
-    .then(response => response.json())
-    .then(data => {
-      quoteElement.textContent = `"${data.content}"`;
-      authorElement.textContent = `- ${data.author}`;
+// init services
+const db = getFirestore()
+
+// collection ref
+const colRef = collection(db, 'citation')
+
+// get collection data
+getDocs(colRef)
+  .then(snapshot => {
+    // console.log(snapshot.docs)
+    let citation = []
+    snapshot.docs.forEach(doc => {
+      citation.push({ ...doc.data(), id: doc.id })
     })
-    .catch(error => console.error(error));
-}
+    console.log(citation)
+  })
+  .catch(err => {
+    console.log(err.message)
+  })
 
-getQuote();
+  // adding docs
+const addCitationForm = document.querySelector('.add')
+addCitationForm.addEventListener('submit', (e) => {
+  e.preventDefault()
 
+  addDoc(colRef, {
+    title: addCitationForm.title.value,
+    author: addCitationForm.author.value,
+  })
+  .then(() => {
+    addCitationForm.reset()
+  })
+})
 
-const buttonElement = document.querySelector('#new-quote-button');
+// deleting docs
+const deleteCitationForm = document.querySelector('.delete')
+deleteCitationForm.addEventListener('submit', (e) => {
+  e.preventDefault()
 
-buttonElement.addEventListener('click', () => {
-  quoteElement.classList.add('animate-pulse');
-  getQuote();
-  setTimeout(() => {
-    quoteElement.classList.remove('animate-pulse');
-  },);
-});
+  const docRef = doc(db, 'citation', deleteCitationForm.id.value)
 
-
-
-const challengeElement = document.querySelector('#activity');
-const typeElement = document.querySelector('#type');
-const participantsElement = document.querySelector('#participants');
-const btn = document.querySelector('#new-challenge-button');
-const api2 = 'https://www.boredapi.com/api/activity/';
-
-function getChallenge() {
-  fetch(api2)
-    .then(response => response.json())
-    .then(data => {
-      challengeElement.textContent = data.activity;
-      typeElement.textContent = `Type: ${data.type}`;
-      participantsElement.textContent = `Participants: ${data.participants}`;
+  deleteDoc(docRef)
+    .then(() => {
+      deleteCitationForm.reset()
     })
-    .catch(error => console.error(error));
-}
-
-getChallenge();
-
-btn.addEventListener('click', () => {
-  challengeElement.classList.add('animate-pulse');
-  getChallenge();
-  setTimeout(() => {
-    challengeElement.classList.remove('animate-pulse');
-  },);
-});
-
+})

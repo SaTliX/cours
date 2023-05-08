@@ -1,48 +1,39 @@
-<!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quotes of the Day</title>
-  <script src="script.js" defer="true" type="module"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Ajout des polices -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotes of the Day</title>
+    <script src="script.js" defer="true" type="module"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Ajout des polices -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap" rel="stylesheet">
+
 </head>
+<body class="bg-gray-600 p-5">
 
-<body class="bg-gray-600">
-  <div class="container mx-auto p-4 flex-grow">
-    <div class="text-center flex justify-between items-center mb-8">
-      <h1 class="text-6xl text-black px-4 py-2 rounded mt-4 font-bold">The Day</h1>
-      <a href="sign/sign.html" class="bg-purple-600 text-white px-4 py-2 rounded mt-4 hover:bg-purple-700">Se connecter</a>
+    <div class="bg-gray-300 rounded-lg shadow-md p-8 mb-8">
+        <h2 class="text-xl font-bold mb-4">Soumettre une citation</h2>
+        <form id="add" class="mb-4">
+        <div class="mb-4">
+            <label for="quote-text" class="block font-bold mb-2">Texte de la citation :</label>
+            <textarea id="quote-text" name="quote-text" class="w-full p-2 rounded border-gray-300" rows="3" required></textarea>
+        </div>
+        <div class="mb-4">
+            <label for="quote-author" class="block font-bold mb-2">Auteur de la citation :</label>
+            <input id="quote-author" name="quote-author" type="text" class="w-full p-2 rounded border-gray-300" required>
+        </div>
+        <div class="mb-4">
+            <label for="quote-language" class="block font-bold mb-2">Langue de la citation :</label>
+            <select id="quote-language" name="quote-language" class="w-full p-2 rounded border-gray-300" required>
+            <option value="fr">Français</option>
+            <option value="en">Anglais</option>
+            <option value="es">Espagnol</option>
+            </select>
+        </div>
+        <button type="submit" class="bg-purple-600 text-white px-4 py-2 rounded mt-4 hover:bg-purple-700">Soumettre</button>
+        </form>
     </div>
-
-    <div id="quote-container" class="bg-gray-300 rounded-lg shadow-md p-8 mb-8">
-      <h2 class="text-xl font-bold mb-4">Citation du jour</h2>
-      <p id="quote" class="text-lg mb-2"></p>
-      <p id="author" class="text-md font-bold"></p>
-      <button id="new-quote-button" class="bg-purple-600 text-white px-4 py-2 rounded mt-4 hover:bg-purple-700">Nouvelle citation</button>
-    </div>
-
-    <div class="text-center">
-      <a href="ajouts de citation/index.html" class="bg-purple-600 text-white px-4 py-2 rounded mt-4 hover:bg-purple-700">Ta citation ?</a>
-    </div>
-
-    <div id="challenge-container" class="bg-gray-300 rounded-lg mt-8 shadow-md p-8 mb-8">
-      <h2 class="text-xl font-bold mb-4">Défis du jour</h2>
-      <p id="activity" class="text-lg mb-2"></p>
-      <p id="type" class="text-md font-bold"></p>
-      <p id="participants" class="text-md font-bold"></p>
-      <button id="new-challenge-button" class="bg-purple-600 text-white px-4 py-2 rounded mt-4 hover:bg-purple-700">Nouveau défis </button>
-    </div>
-  </div>
-
-  <footer class="bg-gray-900 text-white py-4 px-4 fixed bottom-0 left-0 right-0">
-    <p class="text-center">&copy; 2023 Quotes of the Day</p>
-  </footer>
 </body>
-
 </html>
